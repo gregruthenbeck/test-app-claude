@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  nextjs:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    command: >
+      sh -c "if [ ! -d node_modules ]; then
+             npx create-next-app@latest . --typescript --tailwind --eslint --app --no-src-dir --import-alias '@/*' --use-npm &&
+             npm install; 
+             fi &&
+             npm run dev"
